@@ -7,9 +7,6 @@ import GlobalStyle from './GlobalStyle';
 
 const App = () => {
   const [user, setUser] = useState(null);
-  React.useEffect(() => {
-    console.log('Firebase API Key:', process.env.REACT_APP_FIREBASE_API_KEY);
-  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
