@@ -20,5 +20,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Export the initialized services
+console.log('Firebase configuration:', firebaseConfig);
+console.log('Firestore DB:', db);
+console.log('Auth current user:', auth.currentUser);
+
 export { auth, db };

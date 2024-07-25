@@ -1,6 +1,7 @@
 // src/components/ToDoList.js
 import React, { useState, useEffect } from 'react';
 import { db, auth } from '../firebase';
+import { collection, doc, getDocs, addDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import Task from './Task';
 
@@ -35,11 +36,20 @@ const ToDoList = () => {
   useEffect(() => {
     const fetchToDoLists = async () => {
       const user = auth.currentUser;
+      console.log('Auth current user:', user);
+
       if (user) {
-        const toDoListsRef = db.collection('users').doc(user.uid).collection('toDoLists');
-        const snapshot = await toDoListsRef.get();
-        const lists = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setToDoLists(lists);
+        try {
+          console.log('Fetching to-do lists for user:', user.uid);
+          const userDocRef = doc(db, 'users', user.uid);
+          const toDoListsRef = collection(userDocRef, 'toDoLists');
+          console.log('ToDoLists Reference:', toDoListsRef);
+          const snapshot = await getDocs(toDoListsRef);
+          const lists = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setToDoLists(lists);
+        } catch (error) {
+          console.error("Error fetching to-do lists: ", error);
+        }
       }
     };
     fetchToDoLists();
@@ -47,13 +57,22 @@ const ToDoList = () => {
 
   const addToDoList = async () => {
     const user = auth.currentUser;
+    console.log('Auth current user on add:', user);
+
     if (user && newListName.trim()) {
-      const toDoListsRef = db.collection('users').doc(user.uid).collection('toDoLists');
-      await toDoListsRef.add({ name: newListName });
-      setNewListName('');
-      const snapshot = await toDoListsRef.get();
-      const lists = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setToDoLists(lists);
+      try {
+        console.log('Adding new to-do list for user:', user.uid);
+        const userDocRef = doc(db, 'users', user.uid);
+        const toDoListsRef = collection(userDocRef, 'toDoLists');
+        console.log('ToDoLists Reference on add:', toDoListsRef);
+        await addDoc(toDoListsRef, { name: newListName });
+        setNewListName('');
+        const snapshot = await getDocs(toDoListsRef);
+        const lists = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setToDoLists(lists);
+      } catch (error) {
+        console.error("Error adding new to-do list: ", error);
+      }
     }
   };
 
