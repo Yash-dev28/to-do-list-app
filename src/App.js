@@ -22,14 +22,14 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPas
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: API_KEY,
-  authDomain: DOMAIN,
-  databaseURL: DATABASE_URL,
-  projectId: PROJECT_ID,
-  storageBucket: STORAGE,
-  messagingSenderId: SENDER_ID,
-  appId: APP_ID,
-  measurementId: MEASUREMENT_ID
+  apiKey: "AIzaSyBe1Nq-JKiFl8iueHjyXPEhCK5I684wLM8",
+  authDomain: "todo-app-5ad9a.firebaseapp.com",
+  databaseURL: "https://todo-app-5ad9a-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "todo-app-5ad9a",
+  storageBucket: "todo-app-5ad9a.appspot.com",
+  messagingSenderId: "176183480277",
+  appId: "1:176183480277:web:04168b3b37e9eb5490775c",
+  measurementId: "G-B0C4ECZCV7"
 };
 
 // Initialize Firebase
