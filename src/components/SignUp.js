@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import styled from 'styled-components';
 
-const Container = styled.div`
+const SignupContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 300px;
   padding: 20px;
-  max-width: 400px;
-  margin: 0 auto;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f7f7f7;
 `;
 
 const Input = styled.input`
   padding: 10px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 10px;
-  width: 100%;
 `;
 
 const Button = styled.button`
@@ -28,57 +36,45 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 100%;
   &:hover {
     background-color: #0056b3;
   }
 `;
 
-const ErrorText = styled.p`
-  color: red;
-  font-size: 0.875em;
-`;
-
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setError('');
-
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/todo'); // Redirect to the ToDo page after signup
+      navigate('/login');
     } catch (error) {
-      setError(error.message);
+      console.error('Error signing up:', error);
     }
   };
 
   return (
-    <Container>
+    <SignupContainer>
       <h2>Sign Up</h2>
-      <form onSubmit={handleSignup}>
+      <Form onSubmit={handleSignup}>
         <Input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          required
         />
         <Input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          required
         />
-        {error && <ErrorText>{error}</ErrorText>}
         <Button type="submit">Sign Up</Button>
-      </form>
-    </Container>
+      </Form>
+    </SignupContainer>
   );
 };
 
