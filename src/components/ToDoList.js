@@ -8,6 +8,9 @@ const Container = styled.div`
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Input = styled.input`
@@ -15,7 +18,7 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
-  width: calc(100% - 120px);
+  width: 70%;
 `;
 
 const Button = styled.button`
@@ -50,16 +53,12 @@ const ToDoList = () => {
   const addToDoList = async () => {
     const user = auth.currentUser;
     if (user && newListName.trim()) {
-      try {
-        const toDoListsRef = collection(db, 'users', user.uid, 'toDoLists');
-        await addDoc(toDoListsRef, { name: newListName });
-        setNewListName('');
-        const snapshot = await getDocs(toDoListsRef);
-        const lists = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setToDoLists(lists);
-      } catch (error) {
-        console.error('Error adding to-do list:', error);
-      }
+      const toDoListsRef = collection(db, 'users', user.uid, 'toDoLists');
+      await addDoc(toDoListsRef, { name: newListName });
+      setNewListName('');
+      const snapshot = await getDocs(toDoListsRef);
+      const lists = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setToDoLists(lists);
     }
   };
 
