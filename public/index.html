@@ -1,43 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management App</title>
+    <link rel="stylesheet" href="./style.css"> <!-- Check if style.css is in the correct path -->
+    <!-- Font Awesome PRO CDN -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css"> <!-- Verify Font Awesome link -->
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <div class="text">Manage all your daily tasks with ease with Taskify!</div>
+            <div class="gif">
+                <img src="./task_img.png" alt="Task Image"> <!-- Check if task_img.png is in the correct path -->
+            </div>
+            <div class="create_account">
+                <button class="create_acnt" id="create_acnt">Create new account</button>
+                <p>or</p>
+                <button class="sign-in" id="googleAuth"><i class="fa-brands fa-google"></i> Sign in with Google</button>
+            </div>
+        </div>
+    </div>
+    <div class="emailAuth">
+        <div class="auth_content">
+            <div class="form">
+                <div class="smtext"><i class="fa-solid fa-circle-chevron-left" id="back"></i> Sign in to use Taskify</div>
+                <form action="" autocomplete="off">
+                    <div class="error" id="error">Please fill the required field</div>
+                    <div class="eInput">
+                        <input type="text" name="email" placeholder="Email Address" id="email">
+                    </div>
+                    <div class="eInput">
+                        <input type="text" name="fullName" placeholder="Full Name" id="fullName">
+                    </div>
+                    <div class="eInput">
+                        <input type="password" name="password" placeholder="Password" id="password">
+                    </div>
+                    <div class="eSubmit">
+                        <button type="submit">Get Started</button>
+                    </div>
+                    <p>By signing up you are agreeing to our <span>Terms and Conditions</span></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="load_bx">
+        <div class="loading"></div>
+        <div class="img" id="check">
+            <img src="./check.png" alt="Check Image"> <!-- Check if check.png is in the correct path -->
+        </div>
+        <div class="load_text"></div>
+    </div>
+    <script type="module" src="app.js"></script> <!-- Check if app.js is in the correct path -->
+    <script src="tokens/firebase.js"></script> <!-- Check if firebase.js is in the correct path -->
+</body>
 </html>
